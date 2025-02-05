@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <style>
+      body {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        text-align: center;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f7f7f7;
+      }
 
+      input[type="text"] {
+        font-size: 1.2em;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        text-align: center;
+      }
+
+      button {
+        font-size: 1.2em;
+        padding: 0.5em 1em;
+        cursor: pointer;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #4cae4c;
+      }
+      h1.post {
+        color: black;
+      }
+      h2.post {
+        color: black;
+      }
+      h3.post {
+        color: black;
+      }
+      table {
+  border-collapse: collapse;
+  width: 75%;
+}
+
+td, th {
+  border: 1px solid black;
+  text-align: center;
+  padding: 8px;
+  width: 20vw;
+}
+
+    </style>
+  </head>
+  <body onload="onLoad()">
+    <h1>Enter message:</h1>
+    <hr>
+    <form><select id="room" width="20em">
+      <option value="invalid" width="20em" selected="selected">Select Room Number</option>
+       </select></form>
+    <hr>
+    <input type="text" id="0-2" placeholder="Body">
+    <hr>
+    <input type="text" id="0-3" placeholder="Sender">
+    <hr>
+    <hr>
+    <button onclick="submit()">Send</button>
+    <hr>
+    <hr>
+    <h1>Recent Messages:</h1>
+    <table>
+      <tr>
+          <th><h1 class="post" id="1-1"></h1></th>
+          <th><h1 class="post" id="2-1"></h1></th>
+          <th><h1 class="post" id="3-1"></h1></th>
+      </tr>
+      <tr>
+        <td><h2 class="post" id="1-2"></h2></td>
+        <td><h2 class="post" id="2-2"></h2></td>
+        <td><h2 class="post" id="2-2"></h2></td>
+      </tr>
+      <tr>
+      <td><h3 class="post" id="1-3"></h3></td>
+      <td><h3 class="post" id="2-3"></h3></td>
+      <td><h3 class="post" id="3-3"></h3></td>
+    </tr>
+  <tr>
+    <td><input type="radio" class="radio" id="1-4"></td>
+    <td><input type="radio" class="radio" id="2-4"></td>
+    <td><input type="radio" class="radio" id="3-4"></td>
+  </tr>
+  </table>
+  <br>
+  </body>
+  <script>
+    const script = "https://script.google.com/macros/s/AKfycbx0LatCJAHcRV-Obb_bwV24IflbpTwwHFTXqUsnzAtABXhnSjpPGlihJaCjR89Ee-Kk/exec"
+    const publish = ""
+
+    function submit() {
+      var title = document.getElementById('title').value
+      var body = document.getElementById('body').value
+      var from = document.getElementById('from').value
+      fetch(script + "?false&1&" + title)
+      fetch(script + "?false&2&" + body)
+      fetch(script + "?true&3&" + from)
+      setTimeout(1000)
+      window.top.location.href = "https://27phunt.github.io/chat/chat.html"
+    }
+
+    function onLoad() {
+/*      fetch().then(r => r)
+*/      var input = [
+        [1,'Room #','The Title','The Message']
+    ]
+
+      for (x = 1; x < 4; x++) {
+        var data = input[x-1];
+        for (y=1; y<4; y++) {
+          document.getElementById(x+'-'+y).innerHTML = data[y]
+        }
+    }}
+
+    setInterval(() => {
+      for (x=1;x<4;x++) {
+        if (document.getElementById(x+'-4').value) {
+          fetch(script+'?mode=clear&row='+input[x-1][0])
+
+        }
+      }
+    },1000)
+  </script>
+  </body>
+</html>
